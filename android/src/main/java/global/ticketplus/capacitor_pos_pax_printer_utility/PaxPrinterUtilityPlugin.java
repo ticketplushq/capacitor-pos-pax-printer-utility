@@ -83,6 +83,27 @@ public class PaxPrinterUtilityPlugin extends Plugin {
    }
 
    @PluginMethod
+   public  void printQR(PluginCall call){
+       String startText = call.getString("startText");
+       String qrString = call.getString("qrString");
+       String endText = call.getString("endText");
+       JSObject resp = new JSObject();
+
+       printerUtility.getDal();
+       printerUtility.init();
+       configDefault();
+       printerUtility.printStr(startText, null);
+       printerUtility.printStr("", null);
+       printerUtility.printBitmap(qrcodeUtility.encodeAsBitmap(qrString, 512, 512));
+       printerUtility.printStr("", null);
+       printerUtility.printStr(endText, null);
+       printerUtility.step(150);
+       final int status = printerUtility.start();
+       resp.put("status", status);
+       call.resolve(resp);
+   }
+
+   @PluginMethod
    public  void cutPaper(PluginCall call) {
        int mode = call.getInt("mode");
        JSObject resp = new JSObject();

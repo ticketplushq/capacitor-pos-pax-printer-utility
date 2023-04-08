@@ -1,5 +1,6 @@
 package global.ticketplus.capacitor_pos_pax_printer_utility;
 
+import android.Manifest;
 import android.content.Context;
 
 import com.getcapacitor.JSObject;
@@ -7,15 +8,40 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import com.getcapacitor.annotation.Permission;
 
 
-@CapacitorPlugin(name = "PaxPrinterUtilityPlugin")
+@CapacitorPlugin(
+        name = "PaxPrinterUtilityPlugin",
+        permissions = {
+                @Permission(
+                      alias = "printer",
+                      strings = {
+                              "com.pax.permission.PRINTER"
+                      }
+                ),
+                @Permission(
+                        alias = "internet",
+                        strings = {
+                                Manifest.permission.INTERNET
+                        }
+                ),
+                @Permission(
+                        alias = "storage",
+                        strings = {
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        }
+                )
+        }
+)
 public class PaxPrinterUtilityPlugin extends Plugin {
     private Context _context;
     private PaxPrinterUtility printerUtility;
     private static QRCodeUtil qrcodeUtility = new QRCodeUtil();
-   public  PaxPrinterUtilityPlugin() {
-       super();
+
+   @Override
+   public void load() {
        this._context = getContext();
        printerUtility = new PaxPrinterUtility(this._context);
    }
@@ -107,9 +133,21 @@ public class PaxPrinterUtilityPlugin extends Plugin {
    public  void cutPaper(PluginCall call) {
        int mode = call.getInt("mode");
        JSObject resp = new JSObject();
-
+       printerUtility.getDal();
+       printerUtility.init();
        boolean ok = printerUtility.cutPaper(mode);
        resp.put("ok", ok);
+       call.resolve(resp);
+   }
+
+   @PluginMethod
+   public  void getStatus(PluginCall call) {
+       JSObject resp = new JSObject();
+
+       printerUtility.getDal();
+       printerUtility.init();
+       int status = printerUtility.getStatus();
+       resp.put("status", status);
        call.resolve(resp);
    }
 

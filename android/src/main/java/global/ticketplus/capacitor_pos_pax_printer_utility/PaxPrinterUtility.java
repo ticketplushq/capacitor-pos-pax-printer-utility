@@ -144,6 +144,18 @@ public class PaxPrinterUtility {
         }
     }
 
+    public int getStatus() {
+        try {
+            int status = printer.getStatus();
+            logPrint("GET STATUS",  status);
+            return status;
+        } catch (PrinterDevException e) {
+            e.printStackTrace();
+            logPrint("GET STATUS", e);
+            return 404;
+        }
+    }
+
     private EFontTypeAscii  getGrayTypeAscii(String asciiFontTypeString) {
         if (asciiFontTypeString.equals("FONT_8_16")) {
             return EFontTypeAscii.FONT_8_16;

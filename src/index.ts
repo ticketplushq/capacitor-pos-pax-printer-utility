@@ -1,8 +1,9 @@
 import { registerPlugin } from '@capacitor/core';
 
-import type { PaxPrinterUtilityPluginPlugin } from './definitions';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import type { PaxPrinterUtilityPlugin } from './definitions';
 
-const PaxPrinterUtilityPlugin = registerPlugin<PaxPrinterUtilityPluginPlugin>(
+const PaxPrinterUtilityPlugin = registerPlugin<PaxPrinterUtilityPlugin>(
   'PaxPrinterUtilityPlugin',
   {
     web: () => import('./web').then(m => new m.PaxPrinterUtilityPluginWeb()),

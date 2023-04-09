@@ -1,4 +1,4 @@
-export interface PaxPrinterUtilityPlugin {
+export interface PaxPrinterUtility {
   /**
    * Get printer and init instance
    * @returns Promise<{ok: boolean}>

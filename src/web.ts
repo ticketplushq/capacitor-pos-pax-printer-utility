@@ -2,7 +2,7 @@ import { WebPlugin } from '@capacitor/core';
 
 import type {
   CutPaperArgs,
-  PaxPrinterUtilityPlugin,
+  PaxPrinterUtility,
   PrintQrArgs,
   PrintReceiptArgs,
   PrintReceiptWithQrArgs,
@@ -10,9 +10,9 @@ import type {
   StatusResp,
 } from './definitions';
 
-export class PaxPrinterUtilityPluginWeb
+export class PaxPrinterUtilityWeb
   extends WebPlugin
-  implements PaxPrinterUtilityPlugin
+  implements PaxPrinterUtility
 {
   async init(): Promise<{ ok: boolean }> {
     console.log('PAX PRINTER: INIT');

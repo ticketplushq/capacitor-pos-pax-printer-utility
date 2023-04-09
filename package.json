@@ -7,6 +7,7 @@
   "types": "dist/esm/index.d.ts",
   "unpkg": "dist/plugin.js",
   "files": [
+    "android/libs/",
     "android/src/main/",
     "android/build.gradle",
     "dist/",

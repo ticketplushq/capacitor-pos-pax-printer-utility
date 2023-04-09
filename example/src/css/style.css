@@ -1,5 +1,82 @@
-html,
-body {
+@import "../../node_modules/open-props/open-props.min.css";
+@import "../../node_modules/open-props/normalize.min.css";
+
+
+*,
+::after,
+::before {
   padding: 0;
   margin: 0;
+}
+
+html,
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  box-sizing: border-box;
+}
+
+button {
+  color: var(--gray-7);
+  border: var(--border-size-2) solid var(--indigo-8);
+  box-shadow: var(--shadow-2);
+  border-radius: var(--radius-4);
+  font-weight: var(--font-weight-7);
+  padding: 5px 10px;
+}
+
+button:hover {
+  transform:  scale(95%);
+}
+
+.title {
+  text-align: center;
+}
+
+.container {
+  color: var(--gray-0);
+  background-image: var(--gradient-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  height: 100vh;
+  width: 100%;
+}
+
+.form_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 80%;
+}
+
+.form_control {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
+  width: 100%;
+}
+
+.form_control input, 
+.form_control textarea {
+  padding: 10px;
+}
+
+.form_control input {
+  color: #000;
+}
+
+.form_control textarea {
+  color: #000;
+  resize: none;
+  min-height: 150px;
+  overflow-y: auto;
+}
+
+.form_control span {
+  font-weight: var(--font-weight-5);
+  font-size: var(--font-size-4);
 }

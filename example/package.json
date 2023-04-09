@@ -13,12 +13,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@capacitor/core": "latest",
+    "@capacitor/android": "^4.0.0",
     "@capacitor/camera": "latest",
+    "@capacitor/core": "latest",
+    "@capacitor/ios": "^4.0.0",
     "@capacitor/splash-screen": "latest",
     "@ticketplushq/capacitor-pos-pax-printer-utility": "file:..",
-    "@capacitor/ios": "^4.0.0",
-    "@capacitor/android": "^4.0.0"
+    "open-props": "1.5.7"
   },
   "devDependencies": {
     "@capacitor/cli": "latest",

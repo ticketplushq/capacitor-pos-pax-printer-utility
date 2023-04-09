@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <title>Awesome Capacitor App</title>
+    <title>Pax Printer Utility</title>
     <meta
       name="viewport"
       content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
@@ -25,7 +25,32 @@
     <meta name="theme-color" content="#31d53d" />
   </head>
   <body>
-    <capacitor-welcome></capacitor-welcome>
+    <div class="container">
+      <h1 class="title">Pax Printer Utility</h1>
+      <form id="form" class="form_container">
+        <label class="form_control">
+          <span>QR content:</span>
+          <input
+            required
+            autocomplete="off"
+            placeholder="Ingrese el contenido del qr"
+            id="qrCodeElement"
+          />
+        </label>
+        <label class="form_control">
+          <span>Texto:</span>
+          <textarea
+            required
+            autocomplete="off"
+            placeholder="Ingrese el texto a imprimir"
+            id="textElement"
+          ></textarea>
+        </label>
+        <div class="form_control">
+          <button type="submit">Imprimir</button>
+        </div>
+      </form>
+    </div>
 
     <script src="./js/capacitor-welcome.js" type="module"></script>
   </body>

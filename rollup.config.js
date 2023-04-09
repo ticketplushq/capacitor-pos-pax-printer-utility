@@ -3,8 +3,8 @@ export default {
   output: [
     {
       file: 'dist/plugin.js',
-      format: 'iife',
-      name: 'capacitorPaxPrinterUtilityPlugin',
+      format: 'umd',
+      name: 'PaxPrinterUtilityPlugin',
       globals: {
         '@capacitor/core': 'capacitorExports',
       },

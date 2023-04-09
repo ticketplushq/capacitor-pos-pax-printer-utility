@@ -1,4 +1,5 @@
 import { PaxPrinterUtilityPlugin } from '@ticketplushq/capacitor-pos-pax-printer-utility';
+import '../css/style.css';
 
 const form = document.querySelector('#form');
 

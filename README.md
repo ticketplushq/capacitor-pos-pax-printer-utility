@@ -1,6 +1,20 @@
 # @ticketplushq/capacitor-pos-pax-printer-utility
 
-Integration to POS pax printer
+Printer integration for PAX payment POS, Android support.
+
+In web context it behaves like a mock that returns successful execution results.
+
+When executed in the emulator or on a device other than the POS, it will generate an error that will stop the application. This is due to the lack of installation of the [NeptuneService](https://docs.hips.com/docs/pax-a920) app. At the moment, it has not been possible to install [NeptuneService](https://docs.hips.com/docs/pax-a920) on a device other than POS but work is being done to achieve it.
+
+## Permissions
+
+Adding permissions in the AndroidManifest.xml file
+
+```xml
+<uses-permission android:name="com.pax.permission.PRINTER"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+```
 
 ## Install
 
@@ -209,10 +223,32 @@ remember that to use this method you must before started the printer instance,
 
 #### StatusCodes
 
+| Value       | Description                                        |
+| ---------- | ------------------------------------------- |
+| **`0`** | Success |
+| **`1`** | Printer is busy |
+| **`2`** | Out of paper |
+| **`3`** | The format of print data packet error |
+| **`4`** | Printer malfunctions |
+| **`8`** | Printer over heats |
+| **`9`** | Printer voltage is too low |
+| **`-16`** | Printing is unfinished |
+| **`-6`** | cut jam error(only support:E500,E800) |
+| **`-5`** | cover open error(only support:E500,E800,SK600,SK800) |
+| **`-4`** | The printer has not installed font library |
+| **`-2`** | Data package is too long |
+
 <code>0 | 1 | 2 | 3 | 4 | 8 | 9 | -16 | -6 | -5 | -4 | -2</code>
 
 
 #### CutMode
+
+| Value       | Description                                        |
+| ---------- | ------------------------------------------- |
+| **`0`** | FULL_PAPER_CUTTING |
+| **`1`** | PARTIAL_PAPER_CUTTING |
+| **`2`** | FULL_AND_PARTIAL_PAPER_CUTTING |
+| **`-1`** | NO_CUTTING_KNIFE_NOT_SUPPORTED |
 
 <code>0 | 1 | 2 | -1</code>
 

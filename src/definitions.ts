@@ -53,6 +53,38 @@ export interface PaxPrinterUtility {
   getStatus(): Promise<StatusResp>;
 }
 
+/**
+ * Returns:
+ * 0 Success
+ * 1 Printer is busy
+ * 2 Out of paper
+ * 3 The format of print data packet error
+ * 4 Printer malfunctions
+ * 8 Printer over heats
+ * 9 Printer voltage is too low
+ * -16 Printing is unfinished
+ * -6 cut jam error(only support:E500,E800)
+ * -5 cover open error(only support:E500,E800,SK600,SK800)
+ * -4 The printer has not installed font library
+ * -2 Data package is too long
+ */
+
+/**
+| Value       | Description                                        |
+| ---------- | ------------------------------------------- |
+| **`0`** | Success |
+| **`1`** | Printer is busy |
+| **`2`** | Out of paper |
+| **`3`** | The format of print data packet error |
+| **`4`** | Printer malfunctions |
+| **`8`** | Printer over heats |
+| **`9`** | Printer voltage is too low |
+| **`-16`** | Printing is unfinished |
+| **`-6`** | cut jam error(only support:E500,E800) |
+| **`-5`** | cover open error(only support:E500,E800,SK600,SK800) |
+| **`-4`** | The printer has not installed font library |
+| **`-2`** | Data package is too long |
+ */
 export type StatusCodes = 0 | 1 | 2 | 3 | 4 | 8 | 9 | -16 | -6 | -5 | -4 | -2;
 
 export interface StatusResp {
@@ -79,6 +111,14 @@ export interface PrintQrArgs {
   endText?: string;
 }
 
+/**
+| Value       | Description                                        |
+| ---------- | ------------------------------------------- |
+| **`0`** | FULL_PAPER_CUTTING |
+| **`1`** | PARTIAL_PAPER_CUTTING |
+| **`2`** | FULL_AND_PARTIAL_PAPER_CUTTING |
+| **`-1`** | NO_CUTTING_KNIFE_NOT_SUPPORTED |
+ */
 export type CutMode = 0 | 1 | 2 | -1;
 
 export interface CutPaperArgs {

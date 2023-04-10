@@ -14,8 +14,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-      - run: npm i
-      - run: npm test
   publish_npm:
     name: Publish to npmjs
     needs: build

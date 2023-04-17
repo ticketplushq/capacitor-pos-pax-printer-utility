@@ -75,11 +75,16 @@ public class PaxPrinterUtilityPlugin extends Plugin {
    @PluginMethod
    public void printReceipt(PluginCall call) {
        String text = call.getString("text");
+
+       //Optional
+       String asciiFontType = call.getString("asciiFontType");
+       String cFontType = call.getString("cFontType");
+
        JSObject resp = new JSObject();
 
        printerUtility.getDal();
        printerUtility.init();
-       configDefault();
+       configDefault(asciiFontType, cFontType);
        printerUtility.printStr(text, null);
        printerUtility.printStr("", null);
        printerUtility.step(150);
@@ -91,11 +96,16 @@ public class PaxPrinterUtilityPlugin extends Plugin {
    public void printReceiptWithQr(PluginCall call){
        String text = call.getString("text");
        String qrString = call.getString("qrString");
+
+       //Optional
+       String asciiFontType = call.getString("asciiFontType");
+       String cFontType = call.getString("cFontType");
+
        JSObject resp = new JSObject();
 
        printerUtility.getDal();
        printerUtility.init();
-       configDefault();
+       configDefault(asciiFontType, cFontType);
        printerUtility.printStr(text, null);
        printerUtility.printStr("", null);
        if(qrString != null) {
@@ -113,11 +123,15 @@ public class PaxPrinterUtilityPlugin extends Plugin {
        String startText = call.getString("startText");
        String qrString = call.getString("qrString");
        String endText = call.getString("endText");
+       //Optional
+       String asciiFontType = call.getString("asciiFontType");
+       String cFontType = call.getString("cFontType");
+
        JSObject resp = new JSObject();
 
        printerUtility.getDal();
        printerUtility.init();
-       configDefault();
+       configDefault(asciiFontType, cFontType);
        printerUtility.printStr(startText, null);
        printerUtility.printStr("", null);
        printerUtility.printBitmap(qrcodeUtility.encodeAsBitmap(qrString, 512, 512));
@@ -141,6 +155,15 @@ public class PaxPrinterUtilityPlugin extends Plugin {
    }
 
    @PluginMethod
+   public  void getCutMode(PluginCall call) {
+       JSObject resp = new JSObject();
+
+       int mode = printerUtility.getCutMode();
+       resp.put("mode", mode);
+       call.resolve(resp);
+   }
+
+   @PluginMethod
    public  void getStatus(PluginCall call) {
        JSObject resp = new JSObject();
 
@@ -151,8 +174,31 @@ public class PaxPrinterUtilityPlugin extends Plugin {
        call.resolve(resp);
    }
 
-    private void configDefault() {
-       printerUtility.fontSet("FONT_8_16","FONT_16_16");
+   @PluginMethod
+   public  void fontSet(PluginCall call) {
+       String asciiFontType = call.getString("asciiFontType");
+       String cFontType = call.getString("cFontType");
+       printerUtility.fontSet(asciiFontType, cFontType);
+       call.resolve();
+   }
+   @PluginMethod
+   public void doubleHeight(PluginCall call) {
+       boolean isAscDouble = call.getBoolean("isAscDouble");
+       boolean isLocalDouble = call.getBoolean("isLocalDouble");
+       printerUtility.doubleHeight(isAscDouble, isLocalDouble);
+       call.resolve();
+   }
+
+   @PluginMethod
+   public void doubleWidth(PluginCall call) {
+       boolean isAscDouble = call.getBoolean("isAscDouble");
+       boolean isLocalDouble = call.getBoolean("isLocalDouble");
+       printerUtility.doubleWidth(isAscDouble, isLocalDouble);
+       call.resolve();
+   }
+
+    private void configDefault(String asciiFontType, String cFontType ) {
+       printerUtility.fontSet(asciiFontType,cFontType);
        printerUtility.spaceSet(Byte.parseByte("0"), Byte.parseByte("10"));
        printerUtility.setGray(1);
     }

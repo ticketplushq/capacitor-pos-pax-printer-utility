@@ -1,6 +1,5 @@
-@import "open-props/open-props.min.css";
-@import "open-props/normalize.min.css";
-
+@import "https://unpkg.com/open-props";
+@import "https://unpkg.com/open-props/normalize.min.css";
 
 *,
 ::after,
@@ -56,7 +55,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 5px;
+  padding-bottom: 5px;
   width: 100%;
 }
 
@@ -65,12 +64,11 @@ button:hover {
   padding: 10px;
 }
 
-.form_control input {
+.form_control input, textarea, select {
   color: #000;
 }
 
 .form_control textarea {
-  color: #000;
   resize: none;
   min-height: 150px;
   overflow-y: auto;

@@ -1,7 +1,10 @@
 import { WebPlugin } from '@capacitor/core';
 
 import type {
-  CutPaperArgs,
+  CutMode,
+  CutPaperMode,
+  EFontTypeAscii,
+  EFontTypeExtCode,
   PaxPrinterUtility,
   PrintQrArgs,
   PrintReceiptArgs,
@@ -14,6 +17,8 @@ export class PaxPrinterUtilityWeb
   extends WebPlugin
   implements PaxPrinterUtility
 {
+  cutMode: CutMode = 0;
+
   async init(): Promise<{ ok: boolean }> {
     console.log('PAX PRINTER: INIT');
     return { ok: true };
@@ -43,13 +48,40 @@ export class PaxPrinterUtilityWeb
     return { status: 0 };
   }
 
-  async cutPaper(args: CutPaperArgs): Promise<{ ok: boolean }> {
+  async cutPaper(args: CutPaperMode): Promise<{ ok: boolean }> {
     console.log('PAX PRINTER: CUT PAPER ', args);
+    this.cutMode = args.mode;
     return { ok: true };
+  }
+
+  async getCutMode(): Promise<CutPaperMode> {
+    console.log('PAX PRINTER: GET CUT PAPER ', { mode: this.cutMode });
+    return { mode: this.cutMode };
   }
 
   async getStatus(): Promise<StatusResp> {
     console.log('PAX PRINTER: GET STATUS');
     return { status: 0 };
+  }
+
+  async fontSet(
+    asciiFontType: EFontTypeAscii,
+    cFontType: EFontTypeExtCode,
+  ): Promise<void> {
+    console.log('PAX PRINTER: FONT SET', { asciiFontType, cFontType });
+  }
+
+  async doubleHeight(
+    isAscDouble: boolean,
+    isLocalDouble: boolean,
+  ): Promise<void> {
+    console.log('PAX PRINTER: DOUBLE HEIGHT', { isAscDouble, isLocalDouble });
+  }
+
+  async doubleWidth(
+    isAscDouble: boolean,
+    isLocalDouble: boolean,
+  ): Promise<void> {
+    console.log('PAX PRINTER: DOUBLE WIDTH', { isAscDouble, isLocalDouble });
   }
 }

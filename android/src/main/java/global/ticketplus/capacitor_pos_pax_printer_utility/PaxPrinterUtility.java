@@ -144,6 +144,38 @@ public class PaxPrinterUtility {
         }
     }
 
+    public int getCutMode() {
+        int mode;
+        try {
+            mode = printer.getCutMode();
+            logPrint("GET CUT PAPER",  "GET CUT PAPER");
+            return mode;
+        }catch (PrinterDevException e) {
+            e.printStackTrace();
+            logPrint("GET CUT PAPER", e);
+            //Native error plugin;
+            return 404;
+        }
+    }
+
+    public void doubleHeight(boolean isAscDouble, boolean isLocalDouble){
+        try {
+            printer.doubleHeight(isAscDouble, isLocalDouble);
+        } catch (PrinterDevException e) {
+            e.printStackTrace();
+            logPrint("DOUBLE HEIGHT", e);
+        }
+    }
+
+    public void doubleWidth(boolean isAscDouble, boolean isLocalDouble) {
+        try {
+            printer.doubleWidth(isAscDouble, isLocalDouble);
+        } catch (PrinterDevException e) {
+            e.printStackTrace();
+            logPrint("DOUBLE WIDTH", e);
+        }
+    }
+
     public int getStatus() {
         try {
             int status = printer.getStatus();

@@ -28,6 +28,34 @@
       <h1 class="title">Pax Printer Utility</h1>
       <form id="form" class="form_container">
         <label class="form_control">
+          <span>Tipo de fuente Ascii:</span>
+          <select required name="asciiFontType" id="asciiFontType">
+            <option value="">--Seleccione fuente ascii--</option>
+            <option value="FONT_8_16">FONT_8_16</option>
+            <option value="FONT_12_24">FONT_12_24</option>
+            <option value="FONT_8_32">FONT_8_32</option>
+            <option value="FONT_12_48">FONT_12_48</option>
+            <option value="FONT_16_16">FONT_16_16</option>
+            <option value="FONT_24_24">FONT_24_24</option>
+            <option value="FONT_16_32">FONT_16_32</option>
+            <option value="FONT_24_48">FONT_24_48</option>
+          </select>
+        </label>
+        <label class="form_control">
+          <span>Tipo de fuente Código:</span>
+          <select required name="cFontType" id="cFontType">
+            <option value="">--Seleccione fuente código--</option>
+            <option value="FONT_16_16">FONT_16_16</option>
+            <option value="FONT_24_24">FONT_24_24</option>
+            <option value="FONT_16_32">FONT_16_32</option>
+            <option value="FONT_24_48">FONT_24_48</option>
+            <option value="FONT_32_16">FONT_32_16</option>
+            <option value="FONT_48_24">FONT_48_24</option>
+            <option value="FONT_32_32">FONT_32_32</option>
+            <option value="FONT_48_48">FONT_48_48</option>
+          </select>
+        </label>
+        <label class="form_control">
           <span>QR content:</span>
           <input
             required

@@ -34,9 +34,14 @@ npx cap sync
 * [`printReceiptWithQr(...)`](#printreceiptwithqr)
 * [`printQR(...)`](#printqr)
 * [`cutPaper(...)`](#cutpaper)
+* [`getCutMode()`](#getcutmode)
 * [`getStatus()`](#getstatus)
+* [`fontSet(...)`](#fontset)
+* [`doubleHeight(...)`](#doubleheight)
+* [`doubleWidth(...)`](#doublewidth)
 * [Interfaces](#interfaces)
 * [Type Aliases](#type-aliases)
+* [Enums](#enums)
 
 </docgen-index>
 
@@ -93,9 +98,9 @@ printReceipt({ text }: PrintReceiptArgs) => Promise<StatusResp>
 
 Print receipt only
 
-| Param     | Type                                                          | Description            |
-| --------- | ------------------------------------------------------------- | ---------------------- |
-| **`__0`** | <code><a href="#printreceiptargs">PrintReceiptArgs</a></code> | &lt;{text: string}&gt; |
+| Param     | Type                                                          | Description                                                                                                                                       |
+| --------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`__0`** | <code><a href="#printreceiptargs">PrintReceiptArgs</a></code> | &lt;{text: string, asciiFontType?:<a href="#efonttypeascii">EFontTypeAscii</a>, cFontType?: <a href="#efonttypeextcode">EFontTypeExtCode</a>}&gt; |
 
 **Returns:** <code>Promise&lt;<a href="#statusresp">StatusResp</a>&gt;</code>
 
@@ -110,9 +115,9 @@ printReceiptWithQr({ text, qrString, }: PrintReceiptWithQrArgs) => Promise<Statu
 
 Print receipt and QR code content
 
-| Param     | Type                                                                      | Description                              |
-| --------- | ------------------------------------------------------------------------- | ---------------------------------------- |
-| **`__0`** | <code><a href="#printreceiptwithqrargs">PrintReceiptWithQrArgs</a></code> | &lt;{text: string, qrString: string}&gt; |
+| Param     | Type                                                                      | Description                                                                                                                                                         |
+| --------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`__0`** | <code><a href="#printreceiptwithqrargs">PrintReceiptWithQrArgs</a></code> | &lt;{text: string, qrString: string, asciiFontType?:<a href="#efonttypeascii">EFontTypeAscii</a>, cFontType?: <a href="#efonttypeextcode">EFontTypeExtCode</a>}&gt; |
 
 **Returns:** <code>Promise&lt;<a href="#statusresp">StatusResp</a>&gt;</code>
 
@@ -128,9 +133,9 @@ printQR({ qrString, startText, endText }: PrintQrArgs) => Promise<StatusResp>
 Print QR code content,
 optionally you can pass a text to print before and after QR code
 
-| Param     | Type                                                | Description                                                     |
-| --------- | --------------------------------------------------- | --------------------------------------------------------------- |
-| **`__0`** | <code><a href="#printqrargs">PrintQrArgs</a></code> | &lt;{qrString: string, startText?:string, endText?: string}&gt; |
+| Param     | Type                                                | Description                                                                                                                                                                                |
+| --------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`__0`** | <code><a href="#printqrargs">PrintQrArgs</a></code> | &lt;{qrString: string, startText?:string, endText?: string, asciiFontType?:<a href="#efonttypeascii">EFontTypeAscii</a>, cFontType?: <a href="#efonttypeextcode">EFontTypeExtCode</a>}&gt; |
 
 **Returns:** <code>Promise&lt;<a href="#statusresp">StatusResp</a>&gt;</code>
 
@@ -140,7 +145,7 @@ optionally you can pass a text to print before and after QR code
 ### cutPaper(...)
 
 ```typescript
-cutPaper({ mode }: CutPaperArgs) => Promise<{ ok: boolean; }>
+cutPaper({ mode }: CutPaperMode) => Promise<{ ok: boolean; }>
 ```
 
 Set printer cut mode,
@@ -148,9 +153,23 @@ remember that to use this method you must before started the printer instance,
 
 | Param     | Type                                                  | Description            |
 | --------- | ----------------------------------------------------- | ---------------------- |
-| **`__0`** | <code><a href="#cutpaperargs">CutPaperArgs</a></code> | &lt;{mode: number}&gt; |
+| **`__0`** | <code><a href="#cutpapermode">CutPaperMode</a></code> | &lt;{mode: number}&gt; |
 
 **Returns:** <code>Promise&lt;{ ok: boolean; }&gt;</code>
+
+--------------------
+
+
+### getCutMode()
+
+```typescript
+getCutMode() => Promise<CutPaperMode>
+```
+
+Get printer cut mode,
+remember that to use this method you must before started the printer instance,
+
+**Returns:** <code>Promise&lt;<a href="#cutpapermode">CutPaperMode</a>&gt;</code>
 
 --------------------
 
@@ -165,6 +184,54 @@ Get printer status,
 remember that to use this method you must before started the printer instance,
 
 **Returns:** <code>Promise&lt;<a href="#statusresp">StatusResp</a>&gt;</code>
+
+--------------------
+
+
+### fontSet(...)
+
+```typescript
+fontSet(asciiFontType: EFontTypeAscii, cFontType: EFontTypeExtCode) => Promise<void>
+```
+
+Set print font
+
+| Param               | Type                                                          | Description                                      |
+| ------------------- | ------------------------------------------------------------- | ------------------------------------------------ |
+| **`asciiFontType`** | <code><a href="#efonttypeascii">EFontTypeAscii</a></code>     | <a href="#efonttypeascii">EFontTypeAscii</a>     |
+| **`cFontType`**     | <code><a href="#efonttypeextcode">EFontTypeExtCode</a></code> | <a href="#efonttypeextcode">EFontTypeExtCode</a> |
+
+--------------------
+
+
+### doubleHeight(...)
+
+```typescript
+doubleHeight(isAscDouble: boolean, isLocalDouble: boolean) => Promise<void>
+```
+
+Set printing font which is based on base font to double height.
+
+| Param               | Type                 | Description                                        |
+| ------------------- | -------------------- | -------------------------------------------------- |
+| **`isAscDouble`**   | <code>boolean</code> | If the single coding font is double height or not. |
+| **`isLocalDouble`** | <code>boolean</code> | If the multi coding font is double height or not.  |
+
+--------------------
+
+
+### doubleWidth(...)
+
+```typescript
+doubleWidth(isAscDouble: boolean, isLocalDouble: boolean) => Promise<void>
+```
+
+Set printing font which is based on base font to double width.
+
+| Param               | Type                 | Description                                       |
+| ------------------- | -------------------- | ------------------------------------------------- |
+| **`isAscDouble`**   | <code>boolean</code> | If the single coding font is double width or not. |
+| **`isLocalDouble`** | <code>boolean</code> | If the multi coding font is double width or not.  |
 
 --------------------
 
@@ -211,7 +278,7 @@ remember that to use this method you must before started the printer instance,
 | **`endText`**   | <code>string</code> |
 
 
-#### CutPaperArgs
+#### CutPaperMode
 
 | Prop       | Type                                        |
 | ---------- | ------------------------------------------- |
@@ -251,5 +318,36 @@ remember that to use this method you must before started the printer instance,
 | **`-1`** | NO_CUTTING_KNIFE_NOT_SUPPORTED |
 
 <code>0 | 1 | 2 | -1</code>
+
+
+### Enums
+
+
+#### EFontTypeAscii
+
+| Members          | Value                     | Description                         |
+| ---------------- | ------------------------- | ----------------------------------- |
+| **`FONT_8_16`**  | <code>'FONT_8_16'</code>  | 8x16 font (Basic)                   |
+| **`FONT_12_24`** | <code>'FONT_12_24'</code> | 12x24 font (Basic)                  |
+| **`FONT_8_32`**  | <code>'FONT_8_32'</code>  | 8x16 font (enlarge vertically)      |
+| **`FONT_12_48`** | <code>'FONT_12_48'</code> | 12x24 font (enlarge vertically)     |
+| **`FONT_16_16`** | <code>'FONT_16_16'</code> | 8x16 font (enlarge horizontally)    |
+| **`FONT_24_24`** | <code>'FONT_24_24'</code> | 12x24 font (enlarge horizontally)   |
+| **`FONT_16_32`** | <code>'FONT_16_32'</code> | 8x16 font (enlarge on both levels)  |
+| **`FONT_24_48`** | <code>'FONT_24_48'</code> | 12x24 font (enlarge on both levels) |
+
+
+#### EFontTypeExtCode
+
+| Members          | Value                     | Description                         |
+| ---------------- | ------------------------- | ----------------------------------- |
+| **`FONT_16_16`** | <code>'FONT_16_16'</code> | 16x16 font (Basic)                  |
+| **`FONT_24_24`** | <code>'FONT_24_24'</code> | 24x24 font (Basic)                  |
+| **`FONT_16_32`** | <code>'FONT_16_32'</code> | 16x16 font (enlarge vertically)     |
+| **`FONT_24_48`** | <code>'FONT_24_48'</code> | 24x24 font (enlarge vertically)     |
+| **`FONT_32_16`** | <code>'FONT_32_16'</code> | 16x16 font (enlarge horizontally)   |
+| **`FONT_48_24`** | <code>'FONT_48_24'</code> | 24x24 font (enlarge horizontally)   |
+| **`FONT_32_32`** | <code>'FONT_32_32'</code> | 16x16 font (enlarge on both levels) |
+| **`FONT_48_48`** | <code>'FONT_48_48'</code> | 24x24 font (enlarge on both levels) |
 
 </docgen-api>

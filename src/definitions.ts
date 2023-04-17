@@ -18,13 +18,13 @@ export interface PaxPrinterUtility {
   printStr({ text, charset }: PrintStrArgs): Promise<void>;
   /**
    * Print receipt only
-   * @param Object<{text: string}>
+   * @param Object<{text: string, asciiFontType?:EFontTypeAscii, cFontType?: EFontTypeExtCode}>
    * @returns Primise<{status: number}>
    */
   printReceipt({ text }: PrintReceiptArgs): Promise<StatusResp>;
   /**
    * Print receipt and QR code content
-   * @param Object<{text: string, qrString: string}>
+   * @param Object<{text: string, qrString: string, asciiFontType?:EFontTypeAscii, cFontType?: EFontTypeExtCode}>
    * @returns Primise<{status: number}>
    */
   printReceiptWithQr({
@@ -34,7 +34,7 @@ export interface PaxPrinterUtility {
   /**
    * Print QR code content,
    * optionally you can pass a text to print before and after QR code
-   * @param Object<{qrString: string, startText?:string, endText?: string}>
+   * @param Object<{qrString: string, startText?:string, endText?: string, asciiFontType?:EFontTypeAscii, cFontType?: EFontTypeExtCode}>
    * @returns Primise<{status: number}>
    */
   printQR({ qrString, startText, endText }: PrintQrArgs): Promise<StatusResp>;
@@ -44,30 +44,42 @@ export interface PaxPrinterUtility {
    * @param Object<{mode: number}>
    * @returns Promise<{ok: boolean}>
    */
-  cutPaper({ mode }: CutPaperArgs): Promise<{ ok: boolean }>;
+  cutPaper({ mode }: CutPaperMode): Promise<{ ok: boolean }>;
+  /**
+   * Get printer cut mode,
+   * remember that to use this method you must before started the printer instance,
+   * @returns Promise<{mode: number}>
+   */
+  getCutMode(): Promise<CutPaperMode>;
   /**
    * Get printer status,
    * remember that to use this method you must before started the printer instance,
    * @returns Promise<{status: number}>
    */
   getStatus(): Promise<StatusResp>;
+  /**
+   * Set print font
+   * @param asciiFontType EFontTypeAscii
+   * @param cFontType EFontTypeExtCode
+   * @returns Promise<void>
+   */
+  fontSet(
+    asciiFontType: EFontTypeAscii,
+    cFontType: EFontTypeExtCode,
+  ): Promise<void>;
+  /**
+   * Set printing font which is based on base font to double height.
+   * @param isAscDouble If the single coding font is double height or not.
+   * @param isLocalDouble If the multi coding font is double height or not.
+   */
+  doubleHeight(isAscDouble: boolean, isLocalDouble: boolean): Promise<void>;
+  /**
+   * Set printing font which is based on base font to double width.
+   * @param isAscDouble If the single coding font is double width or not.
+   * @param isLocalDouble If the multi coding font is double width or not.
+   */
+  doubleWidth(isAscDouble: boolean, isLocalDouble: boolean): Promise<void>;
 }
-
-/**
- * Returns:
- * 0 Success
- * 1 Printer is busy
- * 2 Out of paper
- * 3 The format of print data packet error
- * 4 Printer malfunctions
- * 8 Printer over heats
- * 9 Printer voltage is too low
- * -16 Printing is unfinished
- * -6 cut jam error(only support:E500,E800)
- * -5 cover open error(only support:E500,E800,SK600,SK800)
- * -4 The printer has not installed font library
- * -2 Data package is too long
- */
 
 /**
 | Value       | Description                                        |
@@ -96,19 +108,28 @@ export interface PrintStrArgs {
   charset: string;
 }
 
-export interface PrintReceiptArgs {
+export interface PrintReceiptArgs extends PrintOptionalArgs {
   text: string;
 }
 
-export interface PrintReceiptWithQrArgs {
+export interface PrintReceiptWithQrArgs extends PrintOptionalArgs {
   text: string;
   qrString?: string;
 }
 
-export interface PrintQrArgs {
+export interface PrintQrArgs extends PrintOptionalArgs {
   qrString: string;
   startText?: string;
   endText?: string;
+}
+
+export interface PrintOptionalArgs {
+  asciiFontType?: EFontTypeAscii;
+  cFontType?: EFontTypeExtCode;
+}
+
+export interface CutPaperMode {
+  mode: CutMode;
 }
 
 /**
@@ -121,6 +142,72 @@ export interface PrintQrArgs {
  */
 export type CutMode = 0 | 1 | 2 | -1;
 
-export interface CutPaperArgs {
-  mode: CutMode;
+export enum EFontTypeAscii {
+  /**
+   * 8x16 font (Basic)
+   */
+  FONT_8_16 = 'FONT_8_16',
+  /**
+   * 12x24 font (Basic)
+   */
+  FONT_12_24 = 'FONT_12_24',
+  /**
+   * 8x16 font (enlarge vertically)
+   */
+  FONT_8_32 = 'FONT_8_32',
+  /**
+   * 12x24 font (enlarge vertically)
+   */
+  FONT_12_48 = 'FONT_12_48',
+  /**
+   * 8x16 font (enlarge horizontally)
+   */
+  FONT_16_16 = 'FONT_16_16',
+  /**
+   * 12x24 font (enlarge horizontally)
+   */
+  FONT_24_24 = 'FONT_24_24',
+  /**
+   * 8x16 font (enlarge on both levels)
+   */
+  FONT_16_32 = 'FONT_16_32',
+  /**
+   * 12x24 font (enlarge on both levels)
+   */
+  FONT_24_48 = 'FONT_24_48',
+}
+
+export enum EFontTypeExtCode {
+  /**
+   * 16x16 font (Basic)
+   */
+  FONT_16_16 = 'FONT_16_16',
+  /**
+   * 24x24 font (Basic)
+   */
+  FONT_24_24 = 'FONT_24_24',
+  /**
+   * 16x16 font (enlarge vertically)
+   */
+  FONT_16_32 = 'FONT_16_32',
+  /**
+   * 24x24 font (enlarge vertically)
+   */
+  FONT_24_48 = 'FONT_24_48',
+  /**
+   * 16x16 font (enlarge horizontally)
+   */
+  FONT_32_16 = 'FONT_32_16',
+  /**
+   * 24x24 font (enlarge horizontally)
+   */
+  FONT_48_24 = 'FONT_48_24',
+  /**
+   * 16x16 font (enlarge on both levels)
+   */
+  FONT_32_32 = 'FONT_32_32',
+  /**
+   * 24x24 font (enlarge on both levels)
+   */
+  FONT_48_48 = 'FONT_48_48',
 }

@@ -93,7 +93,7 @@ after run started method.
 ### printReceipt(...)
 
 ```typescript
-printReceipt({ text }: PrintReceiptArgs) => Promise<StatusResp>
+printReceipt({ text, asciiFontType, cFontType, }: PrintReceiptArgs) => Promise<StatusResp>
 ```
 
 Print receipt only
@@ -110,14 +110,14 @@ Print receipt only
 ### printReceiptWithQr(...)
 
 ```typescript
-printReceiptWithQr({ text, qrString, }: PrintReceiptWithQrArgs) => Promise<StatusResp>
+printReceiptWithQr({ text, qrString, printQrContent, asciiFontType, cFontType, }: PrintReceiptWithQrArgs) => Promise<StatusResp>
 ```
 
 Print receipt and QR code content
 
-| Param     | Type                                                                      | Description                                                                                                                                                         |
-| --------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`__0`** | <code><a href="#printreceiptwithqrargs">PrintReceiptWithQrArgs</a></code> | &lt;{text: string, qrString: string, asciiFontType?:<a href="#efonttypeascii">EFontTypeAscii</a>, cFontType?: <a href="#efonttypeextcode">EFontTypeExtCode</a>}&gt; |
+| Param     | Type                                                                      | Description                                                                                                                                                                                  |
+| --------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`__0`** | <code><a href="#printreceiptwithqrargs">PrintReceiptWithQrArgs</a></code> | &lt;{text: string, qrString: string, printQrContent?:boolean, asciiFontType?:<a href="#efonttypeascii">EFontTypeAscii</a>, cFontType?: <a href="#efonttypeextcode">EFontTypeExtCode</a>}&gt; |
 
 **Returns:** <code>Promise&lt;<a href="#statusresp">StatusResp</a>&gt;</code>
 
@@ -127,7 +127,7 @@ Print receipt and QR code content
 ### printQR(...)
 
 ```typescript
-printQR({ qrString, startText, endText }: PrintQrArgs) => Promise<StatusResp>
+printQR({ qrString, startText, endText, asciiFontType, cFontType, }: PrintQrArgs) => Promise<StatusResp>
 ```
 
 Print QR code content,
@@ -263,10 +263,11 @@ Set printing font which is based on base font to double width.
 
 #### PrintReceiptWithQrArgs
 
-| Prop           | Type                |
-| -------------- | ------------------- |
-| **`text`**     | <code>string</code> |
-| **`qrString`** | <code>string</code> |
+| Prop                 | Type                 |
+| -------------------- | -------------------- |
+| **`text`**           | <code>string</code>  |
+| **`qrString`**       | <code>string</code>  |
+| **`printQrContent`** | <code>boolean</code> |
 
 
 #### PrintQrArgs

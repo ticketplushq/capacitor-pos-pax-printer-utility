@@ -21,15 +21,22 @@ export interface PaxPrinterUtility {
    * @param Object<{text: string, asciiFontType?:EFontTypeAscii, cFontType?: EFontTypeExtCode}>
    * @returns Primise<{status: number}>
    */
-  printReceipt({ text }: PrintReceiptArgs): Promise<StatusResp>;
+  printReceipt({
+    text,
+    asciiFontType,
+    cFontType,
+  }: PrintReceiptArgs): Promise<StatusResp>;
   /**
    * Print receipt and QR code content
-   * @param Object<{text: string, qrString: string, asciiFontType?:EFontTypeAscii, cFontType?: EFontTypeExtCode}>
+   * @param Object<{text: string, qrString: string, printQrContent?:boolean, asciiFontType?:EFontTypeAscii, cFontType?: EFontTypeExtCode}>
    * @returns Primise<{status: number}>
    */
   printReceiptWithQr({
     text,
     qrString,
+    printQrContent,
+    asciiFontType,
+    cFontType,
   }: PrintReceiptWithQrArgs): Promise<StatusResp>;
   /**
    * Print QR code content,
@@ -37,7 +44,13 @@ export interface PaxPrinterUtility {
    * @param Object<{qrString: string, startText?:string, endText?: string, asciiFontType?:EFontTypeAscii, cFontType?: EFontTypeExtCode}>
    * @returns Primise<{status: number}>
    */
-  printQR({ qrString, startText, endText }: PrintQrArgs): Promise<StatusResp>;
+  printQR({
+    qrString,
+    startText,
+    endText,
+    asciiFontType,
+    cFontType,
+  }: PrintQrArgs): Promise<StatusResp>;
   /**
    * Set printer cut mode,
    * remember that to use this method you must before started the printer instance,
@@ -115,6 +128,7 @@ export interface PrintReceiptArgs extends PrintOptionalArgs {
 export interface PrintReceiptWithQrArgs extends PrintOptionalArgs {
   text: string;
   qrString?: string;
+  printQrContent?: boolean;
 }
 
 export interface PrintQrArgs extends PrintOptionalArgs {

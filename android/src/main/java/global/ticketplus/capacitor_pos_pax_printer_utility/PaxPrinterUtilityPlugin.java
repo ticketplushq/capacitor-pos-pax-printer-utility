@@ -96,7 +96,6 @@ public class PaxPrinterUtilityPlugin extends Plugin {
    public void printReceiptWithQr(PluginCall call){
        String text = call.getString("text");
        String qrString = call.getString("qrString");
-       Boolean printQrContent = call.getBoolean("printQrContent");
 
        //Optional
        String asciiFontType = call.getString("asciiFontType");
@@ -110,10 +109,6 @@ public class PaxPrinterUtilityPlugin extends Plugin {
        printerUtility.printStr(text, null);
        printerUtility.printStr("", null);
        if(qrString != null) {
-           if(printQrContent == true) {
-               printerUtility.printStr(qrString, null);
-               printerUtility.printStr("", null);
-           }
            printerUtility.printBitmap(qrcodeUtility.encodeAsBitmap(qrString, 512, 512));
            printerUtility.printStr("", null);
        }

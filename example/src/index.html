@@ -21,12 +21,20 @@
 
     <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
     <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./assets/css/pico.min.css" />
     <meta name="theme-color" content="#31d53d" />
   </head>
   <body>
     <div class="container">
       <h1 class="title">Pax Printer Utility</h1>
       <form id="form" class="form_container">
+        <label class="form_control">
+          <span>Modo corte de papel:</span>
+          <select required name="cutMode" id="cutMode">
+            <option value="0">Corte completo</option>
+            <option value="1">Corte Parcial</option>
+          </select>
+        </label>
         <label class="form_control">
           <span>Tipo de fuente Ascii:</span>
           <select required name="asciiFontType" id="asciiFontType">
@@ -58,7 +66,6 @@
         <label class="form_control">
           <span>QR content:</span>
           <input
-            required
             autocomplete="off"
             placeholder="Ingrese el contenido del qr"
             id="qrCodeElement"

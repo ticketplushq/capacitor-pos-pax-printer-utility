@@ -57,6 +57,7 @@ public class PaxPrinterUtilityPlugin extends Plugin {
    }
    @PluginMethod
    public void start(PluginCall call) {
+
        JSObject resp = new JSObject();
        final int status = printerUtility.start();
        resp.put("status", status);
@@ -66,11 +67,53 @@ public class PaxPrinterUtilityPlugin extends Plugin {
    @PluginMethod
    public void printStr(PluginCall call) {
        String text = call.getString("text");
-       String charset = call.getString("charset");
-       JSObject ret = new JSObject();
-       printerUtility.printStr(text, charset);
-       call.resolve();
+
+       //Optional
+       String asciiFontType = call.getString("asciiFontType");
+       String cFontType = call.getString("cFontType");
+
+       JSObject resp = new JSObject();
+
+       //Init printer
+       printerUtility.getDal();
+       printerUtility.init();
+       configDefault(asciiFontType, cFontType);
+
+       //Print text
+       printerUtility.printStr(text, null);
+       printerUtility.printStr("", null);
+       printerUtility.step(150);
+
+       //Get Status
+       final int status = printerUtility.start();
+       resp.put("status", status);
+       //response
+       call.resolve(resp);
    }
+
+    @PluginMethod
+    public void printBase64Image(PluginCall call) {
+        String image = call.getString("image");
+
+        JSObject resp = new JSObject();
+
+        //Init printer
+        printerUtility.getDal();
+        printerUtility.init();
+
+        //Print image
+        if(image != null) {
+            printerUtility.printBitmap(ImageToBitmapUtil.base64ToBitmap(image));
+            printerUtility.printStr("\n", null);
+        }
+        printerUtility.step(150);
+
+        //Get Status
+        final int status = printerUtility.start();
+        resp.put("status", status);
+        //response
+        call.resolve(resp);
+    }
 
    @PluginMethod
    public void printReceipt(PluginCall call) {
@@ -120,24 +163,46 @@ public class PaxPrinterUtilityPlugin extends Plugin {
 
    @PluginMethod
    public  void printQR(PluginCall call){
-       String startText = call.getString("startText");
+
        String qrString = call.getString("qrString");
-       String endText = call.getString("endText");
+
        //Optional
+       String startText = call.getString("startText");
+       String endText = call.getString("endText");
        String asciiFontType = call.getString("asciiFontType");
        String cFontType = call.getString("cFontType");
+       String asciiFontTypeEnd = call.getString("asciiFontTypeEnd");
+       String cFontTypeEnd = call.getString("cFontTypeEnd");
 
        JSObject resp = new JSObject();
 
        printerUtility.getDal();
        printerUtility.init();
-       configDefault(asciiFontType, cFontType);
-       printerUtility.printStr(startText, null);
-       printerUtility.printStr("", null);
+
+       //Print startText
+       if(asciiFontType != null){
+           configDefault(asciiFontType, cFontType);
+       }
+       if(startText != null){
+           printerUtility.printStr(startText, null);
+           printerUtility.printStr("\n", null);
+       }
+
+       //Print endText
+       if(asciiFontTypeEnd != null) {
+           configDefault(asciiFontTypeEnd, cFontTypeEnd);
+       }
+       if(endText != null){
+           printerUtility.printStr(endText, null);
+           printerUtility.printStr("", null);
+       }
+
+
+       //Print QR
        printerUtility.printBitmap(qrcodeUtility.encodeAsBitmap(qrString, 512, 512));
        printerUtility.printStr("", null);
-       printerUtility.printStr(endText, null);
        printerUtility.step(150);
+
        final int status = printerUtility.start();
        resp.put("status", status);
        call.resolve(resp);

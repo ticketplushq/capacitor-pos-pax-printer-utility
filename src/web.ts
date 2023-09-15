@@ -6,6 +6,7 @@ import type {
   EFontTypeAscii,
   EFontTypeExtCode,
   PaxPrinterUtility,
+  PrintBase64ImageArgs,
   PrintQrArgs,
   PrintReceiptArgs,
   PrintReceiptWithQrArgs,
@@ -31,6 +32,11 @@ export class PaxPrinterUtilityWeb
 
   async printStr(args: PrintStrArgs): Promise<void> {
     console.log('PAX PRINTER: PRINT STR ', args);
+  }
+
+  async printBase64Image(args: PrintBase64ImageArgs): Promise<StatusResp> {
+    console.log('PAX PRINTER: PRINT BASE64 IMAGE ', args);
+    return { status: 0 };
   }
 
   async printReceipt(args: PrintReceiptArgs): Promise<StatusResp> {

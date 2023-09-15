@@ -10,12 +10,17 @@ export interface PaxPrinterUtility {
    */
   start(): Promise<StatusResp>;
   /**
-   * Print text string, remember that to use this method you must before started the printer instance,
-   * after run started method.
+   * Print text string
    * @param Object<{text: string, charset: string}>
    * @returns Promise<void>
    */
-  printStr({ text, charset }: PrintStrArgs): Promise<void>;
+  printStr({ text }: PrintStrArgs): Promise<void>;
+  /**
+   * Print base64 image (jpg) (in development)
+   * @param Object<{image: string}>
+   * @returns Primise<{status: number}>
+   */
+  printBase64Image({ image }: PrintBase64ImageArgs): Promise<StatusResp>;
   /**
    * Print receipt only
    * @param Object<{text: string, asciiFontType?:EFontTypeAscii, cFontType?: EFontTypeExtCode}>
@@ -105,7 +110,10 @@ export interface StatusResp {
 
 export interface PrintStrArgs {
   text: string;
-  charset: string;
+}
+
+export interface PrintBase64ImageArgs {
+  image: string;
 }
 
 export interface PrintReceiptArgs extends PrintOptionalArgs {
@@ -121,6 +129,8 @@ export interface PrintQrArgs extends PrintOptionalArgs {
   qrString: string;
   startText?: string;
   endText?: string;
+  asciiFontTypeEnd?: EFontTypeAscii;
+  cFontTypeEnd?: EFontTypeExtCode;
 }
 
 export interface PrintOptionalArgs {

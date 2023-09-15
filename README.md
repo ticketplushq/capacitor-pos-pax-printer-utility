@@ -30,6 +30,7 @@ npx cap sync
 * [`init()`](#init)
 * [`start()`](#start)
 * [`printStr(...)`](#printstr)
+* [`printBase64Image(...)`](#printbase64image)
 * [`printReceipt(...)`](#printreceipt)
 * [`printReceiptWithQr(...)`](#printreceiptwithqr)
 * [`printQR(...)`](#printqr)
@@ -77,7 +78,7 @@ Run printer commands
 ### printStr(...)
 
 ```typescript
-printStr({ text, charset }: PrintStrArgs) => Promise<void>
+printStr({ text }: PrintStrArgs) => Promise<void>
 ```
 
 Print text string, remember that to use this method you must before started the printer instance,
@@ -86,6 +87,23 @@ after run started method.
 | Param     | Type                                                  | Description                             |
 | --------- | ----------------------------------------------------- | --------------------------------------- |
 | **`__0`** | <code><a href="#printstrargs">PrintStrArgs</a></code> | &lt;{text: string, charset: string}&gt; |
+
+--------------------
+
+
+### printBase64Image(...)
+
+```typescript
+printBase64Image({ image }: PrintBase64ImageArgs) => Promise<StatusResp>
+```
+
+Print base64 image (jpg)
+
+| Param     | Type                                                                  | Description             |
+| --------- | --------------------------------------------------------------------- | ----------------------- |
+| **`__0`** | <code><a href="#printbase64imageargs">PrintBase64ImageArgs</a></code> | &lt;{image: string}&gt; |
+
+**Returns:** <code>Promise&lt;<a href="#statusresp">StatusResp</a>&gt;</code>
 
 --------------------
 
@@ -248,10 +266,16 @@ Set printing font which is based on base font to double width.
 
 #### PrintStrArgs
 
-| Prop          | Type                |
-| ------------- | ------------------- |
-| **`text`**    | <code>string</code> |
-| **`charset`** | <code>string</code> |
+| Prop       | Type                |
+| ---------- | ------------------- |
+| **`text`** | <code>string</code> |
+
+
+#### PrintBase64ImageArgs
+
+| Prop        | Type                |
+| ----------- | ------------------- |
+| **`image`** | <code>string</code> |
 
 
 #### PrintReceiptArgs
@@ -271,11 +295,13 @@ Set printing font which is based on base font to double width.
 
 #### PrintQrArgs
 
-| Prop            | Type                |
-| --------------- | ------------------- |
-| **`qrString`**  | <code>string</code> |
-| **`startText`** | <code>string</code> |
-| **`endText`**   | <code>string</code> |
+| Prop                   | Type                                                          |
+| ---------------------- | ------------------------------------------------------------- |
+| **`qrString`**         | <code>string</code>                                           |
+| **`startText`**        | <code>string</code>                                           |
+| **`endText`**          | <code>string</code>                                           |
+| **`asciiFontTypeEnd`** | <code><a href="#efonttypeascii">EFontTypeAscii</a></code>     |
+| **`cFontTypeEnd`**     | <code><a href="#efonttypeextcode">EFontTypeExtCode</a></code> |
 
 
 #### CutPaperMode

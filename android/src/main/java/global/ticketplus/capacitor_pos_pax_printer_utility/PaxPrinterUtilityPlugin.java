@@ -164,9 +164,8 @@ public class PaxPrinterUtilityPlugin extends Plugin {
    @PluginMethod
    public  void printQR(PluginCall call){
 
-       String qrString = call.getString("qrString");
-
        //Optional
+       String qrString = call.getString("qrString");
        String startText = call.getString("startText");
        String endText = call.getString("endText");
        String asciiFontType = call.getString("asciiFontType");
@@ -199,8 +198,10 @@ public class PaxPrinterUtilityPlugin extends Plugin {
 
 
        //Print QR
-       printerUtility.printBitmap(qrcodeUtility.encodeAsBitmap(qrString, 512, 512));
-       printerUtility.printStr("", null);
+       if(qrString != null) {
+           printerUtility.printBitmap(qrcodeUtility.encodeAsBitmap(qrString, 512, 512));
+           printerUtility.printStr("", null);
+       }
        printerUtility.step(150);
 
        final int status = printerUtility.start();

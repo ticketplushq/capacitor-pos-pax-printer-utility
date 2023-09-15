@@ -122,20 +122,20 @@ export interface PrintReceiptArgs extends PrintOptionalArgs {
 
 export interface PrintReceiptWithQrArgs extends PrintOptionalArgs {
   text: string;
-  qrString?: string;
+  qrString: string | null;
 }
 
 export interface PrintQrArgs extends PrintOptionalArgs {
-  qrString: string;
-  startText?: string;
-  endText?: string;
-  asciiFontTypeEnd?: EFontTypeAscii;
-  cFontTypeEnd?: EFontTypeExtCode;
+  qrString: string | null;
+  startText: string | null;
+  endText: string | null;
+  asciiFontTypeEnd: EFontTypeAscii | null;
+  cFontTypeEnd: EFontTypeExtCode | null;
 }
 
 export interface PrintOptionalArgs {
-  asciiFontType?: EFontTypeAscii;
-  cFontType?: EFontTypeExtCode;
+  asciiFontType: EFontTypeAscii | null;
+  cFontType: EFontTypeExtCode | null;
 }
 
 export interface CutPaperMode {

@@ -81,8 +81,7 @@ Run printer commands
 printStr({ text }: PrintStrArgs) => Promise<void>
 ```
 
-Print text string, remember that to use this method you must before started the printer instance,
-after run started method.
+Print text string
 
 | Param     | Type                                                  | Description                             |
 | --------- | ----------------------------------------------------- | --------------------------------------- |
@@ -97,7 +96,7 @@ after run started method.
 printBase64Image({ image }: PrintBase64ImageArgs) => Promise<StatusResp>
 ```
 
-Print base64 image (jpg)
+Print base64 image (jpg) (in development)
 
 | Param     | Type                                                                  | Description             |
 | --------- | --------------------------------------------------------------------- | ----------------------- |
@@ -287,21 +286,21 @@ Set printing font which is based on base font to double width.
 
 #### PrintReceiptWithQrArgs
 
-| Prop           | Type                |
-| -------------- | ------------------- |
-| **`text`**     | <code>string</code> |
-| **`qrString`** | <code>string</code> |
+| Prop           | Type                        |
+| -------------- | --------------------------- |
+| **`text`**     | <code>string</code>         |
+| **`qrString`** | <code>string \| null</code> |
 
 
 #### PrintQrArgs
 
-| Prop                   | Type                                                          |
-| ---------------------- | ------------------------------------------------------------- |
-| **`qrString`**         | <code>string</code>                                           |
-| **`startText`**        | <code>string</code>                                           |
-| **`endText`**          | <code>string</code>                                           |
-| **`asciiFontTypeEnd`** | <code><a href="#efonttypeascii">EFontTypeAscii</a></code>     |
-| **`cFontTypeEnd`**     | <code><a href="#efonttypeextcode">EFontTypeExtCode</a></code> |
+| Prop                   | Type                                                                  |
+| ---------------------- | --------------------------------------------------------------------- |
+| **`qrString`**         | <code>string \| null</code>                                           |
+| **`startText`**        | <code>string \| null</code>                                           |
+| **`endText`**          | <code>string \| null</code>                                           |
+| **`asciiFontTypeEnd`** | <code><a href="#efonttypeascii">EFontTypeAscii</a> \| null</code>     |
+| **`cFontTypeEnd`**     | <code><a href="#efonttypeextcode">EFontTypeExtCode</a> \| null</code> |
 
 
 #### CutPaperMode

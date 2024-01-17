@@ -38,11 +38,17 @@ export interface PaxPrinterUtility {
   }: PrintReceiptWithQrArgs): Promise<StatusResp>;
   /**
    * Print QR code content,
-   * optionally you can pass a text to print before and after QR code
-   * @param Object<{qrString: string, startText?:string, endText?: string, asciiFontType?:EFontTypeAscii, cFontType?: EFontTypeExtCode}>
+   * optionally you can pass a text to print before (startText) and after (endText) the QR code,
+   * the content of the text argument is printed before startText and with the size of endText
+   * @param Object<{text: string, qrString: string, startText?:string, endText?: string, asciiFontType?:EFontTypeAscii, cFontType?: EFontTypeExtCode}>
    * @returns Primise<{status: number}>
    */
-  printQR({ qrString, startText, endText }: PrintQrArgs): Promise<StatusResp>;
+  printQR({
+    text,
+    qrString,
+    startText,
+    endText,
+  }: PrintQrArgs): Promise<StatusResp>;
   /**
    * Set printer cut mode,
    * remember that to use this method you must before started the printer instance,
@@ -126,6 +132,7 @@ export interface PrintReceiptWithQrArgs extends PrintOptionalArgs {
 }
 
 export interface PrintQrArgs extends PrintOptionalArgs {
+  text: string | null;
   qrString: string | null;
   startText: string | null;
   endText: string | null;

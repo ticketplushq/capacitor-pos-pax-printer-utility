@@ -165,6 +165,7 @@ public class PaxPrinterUtilityPlugin extends Plugin {
    public  void printQR(PluginCall call){
 
        //Optional
+       String text = call.getString("text");
        String qrString = call.getString("qrString");
        String startText = call.getString("startText");
        String endText = call.getString("endText");
@@ -177,6 +178,15 @@ public class PaxPrinterUtilityPlugin extends Plugin {
 
        printerUtility.getDal();
        printerUtility.init();
+
+       //Print Text
+       if(asciiFontTypeEnd != null) {
+           configDefault(asciiFontTypeEnd, cFontTypeEnd);
+       }
+       if(text != null){
+           printerUtility.printStr(text, null);
+           printerUtility.printStr("", null);
+       }
 
        //Print startText
        if(asciiFontType != null){

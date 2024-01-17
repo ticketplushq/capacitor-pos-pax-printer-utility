@@ -144,15 +144,16 @@ Print receipt and QR code content
 ### printQR(...)
 
 ```typescript
-printQR({ qrString, startText, endText }: PrintQrArgs) => Promise<StatusResp>
+printQR({ text, qrString, startText, endText, }: PrintQrArgs) => Promise<StatusResp>
 ```
 
 Print QR code content,
-optionally you can pass a text to print before and after QR code
+optionally you can pass a text to print before (startText) and after (endText) the QR code,
+the content of the text argument is printed before startText and with the size of endText
 
-| Param     | Type                                                | Description                                                                                                                                                                                |
-| --------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`__0`** | <code><a href="#printqrargs">PrintQrArgs</a></code> | &lt;{qrString: string, startText?:string, endText?: string, asciiFontType?:<a href="#efonttypeascii">EFontTypeAscii</a>, cFontType?: <a href="#efonttypeextcode">EFontTypeExtCode</a>}&gt; |
+| Param     | Type                                                | Description                                                                                                                                                                                              |
+| --------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`__0`** | <code><a href="#printqrargs">PrintQrArgs</a></code> | &lt;{text: string, qrString: string, startText?:string, endText?: string, asciiFontType?:<a href="#efonttypeascii">EFontTypeAscii</a>, cFontType?: <a href="#efonttypeextcode">EFontTypeExtCode</a>}&gt; |
 
 **Returns:** <code>Promise&lt;<a href="#statusresp">StatusResp</a>&gt;</code>
 
@@ -296,6 +297,7 @@ Set printing font which is based on base font to double width.
 
 | Prop                   | Type                                                                  |
 | ---------------------- | --------------------------------------------------------------------- |
+| **`text`**             | <code>string \| null</code>                                           |
 | **`qrString`**         | <code>string \| null</code>                                           |
 | **`startText`**        | <code>string \| null</code>                                           |
 | **`endText`**          | <code>string \| null</code>                                           |
